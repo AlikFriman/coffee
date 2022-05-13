@@ -3,6 +3,7 @@ package test.cafe.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 /**
  * Позиция заказа.
@@ -39,5 +40,7 @@ public class OrderItem {
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
-    // TODO: 12.05.2022 Добавить поле "стоимость"
+    // TODO: 12.05.2022 Добавить поле "стоимость" ПРОВЕРИТЬ
+    @Column(name = "full_price")
+    private BigDecimal fullPrice;
 }

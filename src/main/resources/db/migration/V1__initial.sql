@@ -42,9 +42,10 @@ create table "order"
 create table order_item
 (
     id             serial primary key not null,
-    coffee_type_id integer not null ,
-    cup_counter    integer not null ,
-    order_id       integer not null ,
+    coffee_type_id integer            not null,
+    cup_counter    integer            not null,
+    order_id       integer            not null,
     foreign key (coffee_type_id) references coffee_type (id),
-    foreign key (order_id) REFERENCES "order" (id)
+    foreign key (order_id) REFERENCES "order" (id),
+    full_price     decimal
 );

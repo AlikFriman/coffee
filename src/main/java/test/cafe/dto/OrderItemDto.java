@@ -2,6 +2,8 @@ package test.cafe.dto;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 
 /**
  * Позиция заказа.
@@ -16,7 +18,7 @@ public class OrderItemDto {
     /**
      * Сорт кофе.
      */
-     // TODO: 12.05.2022 Тут не совсем понятно, подправил похоже не правильно.
+     // TODO: 12.05.2022 Тут не совсем понятно, подправил похоже не правильно. ПРОВЕРИТЬ
     private CoffeeTypeDto coffeeType;
 
     /**
@@ -28,4 +30,9 @@ public class OrderItemDto {
      * Заказ.
      */
     private OrderDto order;
+
+    /**
+     * Стоимость
+     */
+    private BigDecimal fullPrice;
 }

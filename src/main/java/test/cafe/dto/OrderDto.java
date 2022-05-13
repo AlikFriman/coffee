@@ -39,7 +39,7 @@ public class OrderDto {
     /**
      * Тип доставки.
      */
-    //TODO: 12.05.2022 Проверить на правильность
+    //TODO: 12.05.2022 Проверить на правильность. ПРОВЕРИТЬ
     @Enumerated(EnumType.STRING)
     private DeliveryType deliveryType;
 
