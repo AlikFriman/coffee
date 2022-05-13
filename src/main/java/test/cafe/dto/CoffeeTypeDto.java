@@ -1,47 +1,36 @@
-package test.cafe.model;
+package test.cafe.dto;
 
 import lombok.Data;
-
-import javax.persistence.*;
 import java.math.BigDecimal;
 
 /**
  * Сорт кофе.
  */
 @Data
-@Entity
-@Table(name = "coffee_type")
-public class CoffeeType {
+public class CoffeeTypeDto {
 
     /**
      * Уникальный идентификатор.
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     private Integer id;
 
     /**
      * Наименование на русском.
      */
-    @Column(name = "grade_name_ru", nullable = false)
     private String gradeNameRu;
 
     /**
      * Наименование на английском.
      */
-    @Column(name = "grade_name_eng", nullable = false)
     private String gradeNameEng;
 
     /**
      * Цена.
      */
-    @Column(name = "price", nullable = false)
     private BigDecimal price;
 
     /**
      * Наличие сорта кофе.
      */
-    @Column(name = "disabled", nullable = false)
     private boolean disabled;
 }

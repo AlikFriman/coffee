@@ -1,69 +1,56 @@
-package test.cafe.model;
+package test.cafe.dto;
 
-
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import test.cafe.model.DeliveryType;
+import test.cafe.model.OrderStatus;
 
-import javax.persistence.*;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Заказ.
  */
-@Entity
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Table(name = "order")
-public class Order {
 
-    /**
-     * Позиция заказа.
-     */
-    @OneToMany(mappedBy = "order")
-    List<OrderItem> orderItems = new ArrayList<>();
+@Data
+public class OrderDto {
+
     /**
      * Уникальный идентификатор.
      */
-    @Id
-    @GeneratedValue
-    @Column(name = "id", nullable = false)
     private Integer id;
+
     /**
      * Дата и время заказа.
      */
-    // TODO: 12.05.2022 Разобраться со временем
-    @Column(name = "order_date_time")
     private Date orderDateTime;
+
     /**
      * Имя заказчика.
      */
-    @Column(name = "customer_name", nullable = false)
     private String customerName;
+
     /**
      * Адрес доставки.
      */
-    @Column(name = "delivery_address")
     private String deliveryAddress;
+
     /**
      * Тип доставки.
      */
-    @Column(name = "delivery_type")
+    //TODO: 12.05.2022 Проверить на правильность
     @Enumerated(EnumType.STRING)
     private DeliveryType deliveryType;
+
     /**
      * Полная стоимость заказа.
      */
-    @Column(name = "full_order_price")
     private BigDecimal fullOrderPrice;
+
     /**
      * Статус заказа.
      */
-    @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 }
