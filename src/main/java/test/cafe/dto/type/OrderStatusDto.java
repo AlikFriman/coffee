@@ -1,9 +1,9 @@
-package test.cafe.model;
+package test.cafe.dto.type;
 
 /**
  * Статус заказа.
  */
-public enum OrderStatus {
+public enum OrderStatusDto {
 
     /**
      * Создан.

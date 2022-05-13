@@ -1,8 +1,8 @@
 package test.cafe.dto;
 
 import lombok.Data;
-import test.cafe.model.DeliveryType;
-import test.cafe.model.OrderStatus;
+import test.cafe.dto.type.DeliveryTypeDto;
+import test.cafe.dto.type.OrderStatusDto;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -39,9 +39,8 @@ public class OrderDto {
     /**
      * Тип доставки.
      */
-    //TODO: 12.05.2022 Проверить на правильность. ПРОВЕРИТЬ
     @Enumerated(EnumType.STRING)
-    private DeliveryType deliveryType;
+    private DeliveryTypeDto deliveryType;
 
     /**
      * Полная стоимость заказа.
@@ -52,5 +51,5 @@ public class OrderDto {
      * Статус заказа.
      */
     @Enumerated(EnumType.STRING)
-    private OrderStatus status;
+    private OrderStatusDto status;
 }

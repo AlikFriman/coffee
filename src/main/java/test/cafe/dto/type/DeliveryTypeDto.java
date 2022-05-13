@@ -1,9 +1,9 @@
-package test.cafe.model;
+package test.cafe.dto.type;
 
 /**
  * Тип доставки.
  */
-public enum DeliveryType {
+public enum DeliveryTypeDto {
     /**
      * Доставка.
      */
@@ -12,5 +12,5 @@ public enum DeliveryType {
     /**
      * Самовывоз.
      */
-    PICKUP,
+    PICKUP
 }

@@ -4,6 +4,8 @@ package test.cafe.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import test.cafe.model.type.DeliveryType;
+import test.cafe.model.type.OrderStatus;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
