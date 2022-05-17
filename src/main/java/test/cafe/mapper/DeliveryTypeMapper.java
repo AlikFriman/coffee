@@ -1,9 +1,7 @@
 package test.cafe.mapper;
 
 import org.mapstruct.Mapper;
-import test.cafe.dto.CoffeeTypeDto;
 import test.cafe.dto.type.DeliveryTypeDto;
-import test.cafe.model.CoffeeType;
 import test.cafe.model.type.DeliveryType;
 
 @Mapper(componentModel = "spring")

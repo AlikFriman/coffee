@@ -4,8 +4,6 @@ import lombok.Data;
 import test.cafe.dto.type.DeliveryTypeDto;
 import test.cafe.dto.type.OrderStatusDto;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;

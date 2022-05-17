@@ -7,7 +7,6 @@ import test.cafe.dto.OrderDto;
 import test.cafe.dto.OrderItemDto;
 import test.cafe.service.OrderService;
 
-import javax.websocket.server.PathParam;
 import java.util.List;
 
 // TODO: 17.05.2022 Разобраться, как передаются данные с фронта в контроллеры

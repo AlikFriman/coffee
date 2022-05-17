@@ -1,6 +1,5 @@
 package test.cafe.service;
 
-import org.springframework.stereotype.Service;
 import test.cafe.model.Order;
 
 public interface CalculationService {
