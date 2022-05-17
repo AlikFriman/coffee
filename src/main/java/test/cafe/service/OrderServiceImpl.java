@@ -25,6 +25,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderMapper orderMapper;
     private final DeliveryTypeMapper deliveryTypeMapper;
     private final OrderRepository orderRepository;
+    private final CalculationService calculationService;
 
     @Override
     public OrderDto create(OrderDto orderDto) {
@@ -100,6 +101,6 @@ public class OrderServiceImpl implements OrderService {
         order.setCustomerName(orderDto.getCustomerName());
         order.setDeliveryAddress(orderDto.getDeliveryAddress());
         order.setDeliveryType(deliveryTypeMapper.toModel(orderDto.getDeliveryType()));
-        return order;
+        return calculationService.processOrder(order);
     }
 }

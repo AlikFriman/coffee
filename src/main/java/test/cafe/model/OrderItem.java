@@ -31,8 +31,8 @@ public class OrderItem {
     /**
      * Количество.
      */
-    @Column(name = "counter", nullable = false)
-    private Integer counter;
+    @Column(name = "count", nullable = false)
+    private Integer count;
 
     /**
      * Ссылка на сущность "Заказ".

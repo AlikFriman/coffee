@@ -39,20 +39,20 @@ create table order_item
 
 insert into coffee_type
     (available, name_eng, name_ru, price)
-values ('false', 'Espresso', 'Эспрессо', '1');
+values ('true', 'Espresso', 'Эспрессо', '1');
 
 insert into coffee_type
     (available, name_eng, name_ru, price)
-values ('false', 'Americano', 'Американо', '2');
+values ('true', 'Americano', 'Американо', '2');
 
 insert into coffee_type
     (available, name_eng, name_ru, price)
-values ('false', 'Latte', 'Латте', '2');
+values ('true', 'Latte', 'Латте', '2');
 
 insert into coffee_type
     (available, name_eng, name_ru, price)
-values ('true', 'Cappuccino', 'Капучино', '4');
+values ('false', 'Cappuccino', 'Капучино', '4');
 
 insert into coffee_type
     (available, name_eng, name_ru, price)
-values ('false', 'Mocha', 'Моккачино', '4');
+values ('true', 'Mocha', 'Моккачино', '4');
