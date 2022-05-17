@@ -21,14 +21,13 @@ public class OrderCalcService {
 
     private CoffeeTypeRepository coffeeTypeRepository;
 
-// Fetch
 
     /**
      * Сумма заказа за каждый сорт кофе с учетом скидки по количеству кружек
      */
     // TODO: 12.05.2022 В сервис нужно передавать идентификатор заказа, по которому нужно сделать расчет
     //  Заказ вытащить из БД.
-//    public Integer calc(List<OrderItem> orderItems) {
+//    public Integer calc(List<OrderItem> items) {
 //        Integer fullPrice = 0;
 //        List<CoffeeType> types = coffeeTypeRepository.findAll();
 //        HashMap<Integer, BigDecimal> idPrice = idPrice(types);

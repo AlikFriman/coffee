@@ -1,6 +1,7 @@
 package test.cafe.model;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -28,19 +29,21 @@ public class OrderItem {
     private CoffeeType coffeeType;
 
     /**
-     * Число чашек.
+     * Количество.
      */
-    @Column(name = "cup_counter", nullable = false)
-    private Integer cupCounter;
+    @Column(name = "counter", nullable = false)
+    private Integer counter;
 
     /**
-     * Заказ.
+     * Ссылка на сущность "Заказ".
      */
     @ManyToOne
     @JoinColumn(name = "order_id", nullable = false)
+    @ToString.Exclude
     private Order order;
-
-    // TODO: 12.05.2022 Добавить поле "стоимость" ПРОВЕРИТЬ
-    @Column(name = "full_price")
-    private BigDecimal fullPrice;
+    /**
+     * Стоимость.
+     */
+    @Column(name = "sum")
+    private BigDecimal sum;
 }

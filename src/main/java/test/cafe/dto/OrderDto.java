@@ -8,11 +8,11 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Заказ.
  */
-
 @Data
 public class OrderDto {
 
@@ -22,9 +22,9 @@ public class OrderDto {
     private Integer id;
 
     /**
-     * Дата и время заказа.
+     * Дата и время подтверждения заказа.
      */
-    private Date orderDateTime;
+    private Date dateTime;
 
     /**
      * Имя заказчика.
@@ -39,17 +39,20 @@ public class OrderDto {
     /**
      * Тип доставки.
      */
-    @Enumerated(EnumType.STRING)
     private DeliveryTypeDto deliveryType;
 
     /**
      * Полная стоимость заказа.
      */
-    private BigDecimal fullOrderPrice;
+    private BigDecimal sum;
 
     /**
      * Статус заказа.
      */
-    @Enumerated(EnumType.STRING)
     private OrderStatusDto status;
+
+    /**
+     * Позиции заказа.
+     */
+    private List<OrderItemDto> items;
 }

@@ -1,51 +1,58 @@
+-- Сорт кофе
+
 create table coffee_type
 (
-    id             serial primary key not null,
-    disabled       boolean            not null,
-    grade_name_eng text not null ,
-    grade_name_ru  text not null ,
-    price          decimal
+    id        serial primary key not null,
+    available boolean            not null,
+    name_eng  text               not null,
+    name_ru   text               not null,
+    price     decimal
 );
 
-insert into coffee_type
-    (disabled, grade_name_eng, grade_name_ru, price)
-values ('false', 'Espresso', 'Эспрессо', '1');
-
-insert into coffee_type
-    (disabled, grade_name_eng, grade_name_ru, price)
-values ('false', 'Americano', 'Американо', '2');
-
-insert into coffee_type
-    (disabled, grade_name_eng, grade_name_ru, price)
-values ('false', 'Latte', 'Латте', '2');
-
-insert into coffee_type
-    (disabled, grade_name_eng, grade_name_ru, price)
-values ('true', 'Cappuccino', 'Капучино', '4');
-
-insert into coffee_type
-    (disabled, grade_name_eng, grade_name_ru, price)
-values ('false', 'Mocha', 'Моккачино', '4');
+-- Заказ
 
 create table "order"
 (
     id               serial primary key not null,
-    order_date_time  timestamp without time zone,
-    customer_name    text not null,
+    date_time        timestamp without time zone,
+    customer_name    text               not null,
     delivery_address text,
-    delivery_type    text not null,
-    full_order_price decimal,
-    status           text not null
+    delivery_type    text               not null,
+    sum              decimal,
+    status           text               not null
 );
 
+-- Позиция заказа
 
 create table order_item
 (
     id             serial primary key not null,
     coffee_type_id integer            not null,
-    cup_counter    integer            not null,
+    count          integer            not null,
     order_id       integer            not null,
+    sum            decimal,
     foreign key (coffee_type_id) references coffee_type (id),
-    foreign key (order_id) REFERENCES "order" (id),
-    full_price     decimal
+    foreign key (order_id) REFERENCES "order" (id)
 );
+
+-- Заполнение списка сортов кофе
+
+insert into coffee_type
+    (available, name_eng, name_ru, price)
+values ('false', 'Espresso', 'Эспрессо', '1');
+
+insert into coffee_type
+    (available, name_eng, name_ru, price)
+values ('false', 'Americano', 'Американо', '2');
+
+insert into coffee_type
+    (available, name_eng, name_ru, price)
+values ('false', 'Latte', 'Латте', '2');
+
+insert into coffee_type
+    (available, name_eng, name_ru, price)
+values ('true', 'Cappuccino', 'Капучино', '4');
+
+insert into coffee_type
+    (available, name_eng, name_ru, price)
+values ('false', 'Mocha', 'Моккачино', '4');

@@ -18,21 +18,20 @@ public class OrderItemDto {
     /**
      * Сорт кофе.
      */
-     // TODO: 12.05.2022 Тут не совсем понятно, подправил похоже не правильно. ПРОВЕРИТЬ
     private CoffeeTypeDto coffeeType;
 
     /**
-     * Число чашек.
+     * Количество.
      */
-    private Integer cupCounter;
+    private Integer count;
 
     /**
-     * Заказ.
+     * Идентификатор заказа.
      */
-    private OrderDto order;
+    private Integer orderId;
 
     /**
      * Стоимость
      */
-    private BigDecimal fullPrice;
+    private BigDecimal sum;
 }

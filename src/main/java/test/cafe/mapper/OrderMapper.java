@@ -13,7 +13,7 @@ public interface OrderMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "status", ignore = true)
-    @Mapping(target = "fullOrderPrice", ignore = true)
-    @Mapping(target = "orderDateTime", ignore = true)
+    @Mapping(target = "sum", ignore = true)
+    @Mapping(target = "dateTime", ignore = true)
     Order toModel(OrderDto orderDto);
 }

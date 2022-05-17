@@ -24,14 +24,14 @@ public class CoffeeType {
     /**
      * Наименование на русском.
      */
-    @Column(name = "grade_name_ru", nullable = false)
-    private String gradeNameRu;
+    @Column(name = "name_ru", nullable = false)
+    private String nameRu;
 
     /**
      * Наименование на английском.
      */
-    @Column(name = "grade_name_eng", nullable = false)
-    private String gradeNameEng;
+    @Column(name = "name_eng", nullable = false)
+    private String nameEng;
 
     /**
      * Цена.
@@ -42,6 +42,6 @@ public class CoffeeType {
     /**
      * Наличие сорта кофе.
      */
-    @Column(name = "disabled", nullable = false)
-    private boolean disabled;
+    @Column(name = "available", nullable = false)
+    private boolean available;
 }

@@ -17,12 +17,12 @@ public class CoffeeTypeDto {
     /**
      * Наименование на русском.
      */
-    private String gradeNameRu;
+    private String nameRu;
 
     /**
      * Наименование на английском.
      */
-    private String gradeNameEng;
+    private String nameEng;
 
     /**
      * Цена.
@@ -30,7 +30,7 @@ public class CoffeeTypeDto {
     private BigDecimal price;
 
     /**
-     * Наличие сорта кофе.
+     * Признак наличия сорта кофе.
      */
-    private boolean disabled;
+    private boolean available;
 }

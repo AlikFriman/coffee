@@ -10,7 +10,6 @@ import test.cafe.service.CoffeeTypeService;
 
 import java.util.List;
 
-// TODO: 11.05.2022 URL эндпоинтов
 @RestController
 @RequestMapping("/coffee-types")
 @AllArgsConstructor

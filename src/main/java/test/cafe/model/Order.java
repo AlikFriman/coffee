@@ -1,9 +1,7 @@
 package test.cafe.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import test.cafe.model.type.DeliveryType;
 import test.cafe.model.type.OrderStatus;
 
@@ -17,17 +15,14 @@ import java.util.List;
  * Заказ.
  */
 @Entity
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 @NoArgsConstructor
-@Table(name = "order")
+@Table(name = "\"order\"")
 public class Order {
 
-    /**
-     * Позиция заказа.
-     */
-    @OneToMany(mappedBy = "order")
-    List<OrderItem> orderItems = new ArrayList<>();
     /**
      * Уникальный идентификатор.
      */
@@ -36,21 +31,22 @@ public class Order {
     @Column(name = "id", nullable = false)
     private Integer id;
     /**
-     * Дата и время заказа.
+     * Статус заказа.
      */
-    // TODO: 12.05.2022 Разобраться со временем
-    @Column(name = "order_date_time")
-    private Date orderDateTime;
+    @Column(name = "status", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
+// TODO: 12.05.2022 Разобраться со временем
+    /**
+     * Дата и время подтверждения заказа.
+     */
+    @Column(name = "date_time")
+    private Date dateTime;
     /**
      * Имя заказчика.
      */
     @Column(name = "customer_name", nullable = false)
     private String customerName;
-    /**
-     * Адрес доставки.
-     */
-    @Column(name = "delivery_address")
-    private String deliveryAddress;
     /**
      * Тип доставки.
      */
@@ -58,14 +54,23 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private DeliveryType deliveryType;
     /**
+     * Адрес доставки.
+     */
+    @Column(name = "delivery_address")
+    private String deliveryAddress;
+    // TODO: 13.05.2022 Ленивая загрузка? Hibernate lazy fetch
+    /**
+     * Позиции заказа.
+     */
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+
+    private List<OrderItem> items = new ArrayList<>();
+    // TODO: Сделать nullable
+    /**
      * Полная стоимость заказа.
      */
-    @Column(name = "full_order_price")
-    private BigDecimal fullOrderPrice;
-    /**
-     * Статус заказа.
-     */
-    @Column(name = "status", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private OrderStatus status;
+    @Column(name = "sum")
+    private BigDecimal sum;
 }
