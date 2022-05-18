@@ -52,12 +52,6 @@ public class OrderController {
         return orderService.edit(id, orderDto)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
-
-//        if (newOrderDto == null) {
-//            return ResponseEntity.notFound().build();
-//        } else {
-//            return ResponseEntity.ok(newOrderDto);
-//        }
     }
 
     /**
@@ -78,9 +72,33 @@ public class OrderController {
      * @return
      */
     @PutMapping("/{id}/cancel")
-    public ResponseEntity<OrderDto> cancel(@PathVariable Integer id) {
+    public ResponseEntity<OrderDto> cancel(@PathVariable Integer id, @RequestBody OrderDto orderDto) {
         // todo: Вызвать соответствующий метод сервиса
-        return ResponseEntity.ok().build();
+        return orderService.cancel(id, orderDto)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build()); // Итог
+
+//// 1 Способ, через if
+//        OrderDto newOrderDto = orderService.cancel(id, orderDto);
+//        if (newOrderDto == null) {
+//            return ResponseEntity.notFound().build();
+//        } else {
+//            return ResponseEntity.ok(newOrderDto);
+//        }
+
+//        2 Способ, через тернарный оператор
+//        OrderDto newOrderDto = orderService.cancel(id, orderDto);
+//        return newOrderDto == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(newOrderDto);
+
+//        3 Способ,
+
+//        orderService.cancel(id, orderDto)
+//                .map(orderDto1 -> ResponseEntity.ok(orderDto1))   // До
+
+//        orderService.cancel(id, orderDto)
+//                .map(ResponseEntity::ok)
+//                .orElse(ResponseEntity.notFound().build());   // После
+//        Итог в начале
     }
 
     /**

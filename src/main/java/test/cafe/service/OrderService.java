@@ -39,7 +39,7 @@ public interface OrderService {
      * @param id
      * @return
      */
-    OrderDto cancel(Integer id);
+    Optional<OrderDto> cancel(Integer id,OrderDto orderDto);
 
     /**
      *
