@@ -9,5 +9,7 @@ import test.cafe.model.OrderItem;
 public interface OrderItemMapper {
 
     @Mapping(target = "orderId", source = "order.id") // todo Разобраться, как это работает
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "sum", ignore = true)
     OrderItemDto toDto(OrderItem orderItem);
 }

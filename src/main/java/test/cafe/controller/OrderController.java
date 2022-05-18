@@ -62,7 +62,9 @@ public class OrderController {
      */
     @PutMapping("/{id}/confirm")
     public ResponseEntity<OrderDto> confirm(@PathVariable Integer id) {
-        return ResponseEntity.ok().build();
+        return orderService.confirm(id)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     /**
@@ -72,9 +74,9 @@ public class OrderController {
      * @return
      */
     @PutMapping("/{id}/cancel")
-    public ResponseEntity<OrderDto> cancel(@PathVariable Integer id, @RequestBody OrderDto orderDto) {
+    public ResponseEntity<OrderDto> cancel(@PathVariable Integer id) {
         // todo: Вызвать соответствующий метод сервиса
-        return orderService.cancel(id, orderDto)
+        return orderService.cancel(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build()); // Итог
 
@@ -111,7 +113,9 @@ public class OrderController {
     @PostMapping("/{orderId}/items")
     public ResponseEntity<OrderItemDto> addItem(@PathVariable Integer orderId,
                                                 @RequestBody OrderItemDto orderItemDto) {
-        return ResponseEntity.ok().build();
+        return orderService.addItem(orderId, orderItemDto)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build()); // Итог
     }
 
     /**

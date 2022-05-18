@@ -20,7 +20,7 @@ public interface OrderService {
     OrderDto create(OrderDto orderDto);
 
     /**
-     *
+     * Изменение заказа.
      * @param id
      * @param orderDto
      * @return
@@ -28,46 +28,46 @@ public interface OrderService {
     Optional<OrderDto> edit(Integer id, OrderDto orderDto);
 
     /**
-     *
+     * Подтверждение заказа.
      * @param id
      * @return
      */
-    OrderDto confirm(Integer id);
+    Optional<OrderDto> confirm(Integer id);
 
     /**
-     *
+     * Отмена заказа.
      * @param id
      * @return
      */
-    Optional<OrderDto> cancel(Integer id,OrderDto orderDto);
+    Optional<OrderDto> cancel(Integer id);
 
     /**
-     *
+     * Добавление позиции заказа.
      * @param orderId
      * @param orderItemDto
      * @return
      */
-    OrderItemDto addItem(Integer orderId, OrderItemDto orderItemDto);
+    Optional<OrderItemDto> addItem(Integer orderId, OrderItemDto orderItemDto);
 
     /**
-     *
+     * Удаление позиции заказа.
      * @param orderId
      * @param itemId
      * @return
      */
-    OrderItemDto deleteItem(Integer orderId, Integer itemId);
+   Optional<OrderItemDto> deleteItem(Integer orderId, Integer itemId);
 
     /**
-     *
+     * Изменение позиции заказа.
      * @param orderId
      * @param itemId
      * @param orderItemDto
      * @return
      */
-    OrderItemDto editItem(Integer orderId, Integer itemId, OrderItemDto orderItemDto);
+    Optional<OrderItemDto> editItem(Integer orderId, Integer itemId, OrderItemDto orderItemDto);
 
     /**
-     *
+     * Получение списка заказов.
      * @return
      */
     List<OrderDto> list();

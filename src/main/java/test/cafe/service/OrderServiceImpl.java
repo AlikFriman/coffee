@@ -7,7 +7,6 @@ import test.cafe.dto.OrderDto;
 import test.cafe.dto.OrderItemDto;
 import test.cafe.mapper.DeliveryTypeMapper;
 import test.cafe.mapper.OrderMapper;
-import test.cafe.mapper.OrderStatusMapper;
 import test.cafe.model.Order;
 import test.cafe.model.type.OrderStatus;
 import test.cafe.repository.OrderRepository;
@@ -25,9 +24,10 @@ public class OrderServiceImpl implements OrderService {
     // TODO: 17.05.2022 Spring IoC, Spring Context
     private final OrderMapper orderMapper;
     private final DeliveryTypeMapper deliveryTypeMapper;
-    private final OrderStatusMapper orderStatusMapper;
     private final OrderRepository orderRepository;
     private final CalculationService calculationService;
+
+    // TODO: 18.05.2022 Реализовать проверки статусов заказов перед совершением операций
 
     @Override
     public OrderDto create(OrderDto orderDto) {
@@ -56,36 +56,45 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderDto confirm(Integer id) {
-        return null;
-    }
-
-    @Override
-    public Optional<OrderDto> cancel(Integer id, OrderDto orderDto) {
-
-        // todo: Достать из репозитория заказ по id
+    public Optional<OrderDto> confirm(Integer id) {
         return orderRepository.findById(id)
-                // todo: Поменять статус на Canceled
-                .map(order -> cancelInternal(order, orderDto))
-                // todo: Сохранить измененный (отмененный) заказ в репозиторий
+                // Поменять статус на CONFIRMED
+                .map(this::confirmInternal)
+                // Сохранить подтвержденный заказ в репозиторий
                 .map(orderRepository::save)
-                // todo: Сохраненный заказ преобразовать в DTO
+                // Сохраненный заказ преобразовать в DTO
                 .map(orderMapper::toDto);
-//                .orElse(null);
     }
 
     @Override
-    public OrderItemDto addItem(Integer orderId, OrderItemDto orderItemDto) {
+    public Optional<OrderDto> cancel(Integer id) {
+        // Достать из репозитория заказ по id
+        return orderRepository.findById(id)
+                // Поменять статус на CANCELED
+                .map(this::cancelInternal)
+                // Сохранить измененный (отмененный) заказ в репозиторий
+                .map(orderRepository::save)
+                // Сохраненный заказ преобразовать в DTO
+                .map(orderMapper::toDto);
+    }
+
+    @Override
+    public Optional<OrderItemDto> addItem(Integer orderId, OrderItemDto orderItemDto) {
+        // todo Извлечь из БД заказ
+        // todo Проебразовать ДТО в сущность
+        // todo Добавить созданную позицию в список позиций заказа
+        // todo Запонить идентификатором заказа поле id в позиции заказа
+        // todo Пересчитать сумму заказа
         return null;
     }
 
     @Override
-    public OrderItemDto deleteItem(Integer orderId, Integer itemId) {
+    public Optional<OrderItemDto> deleteItem(Integer orderId, Integer itemId) {
         return null;
     }
 
     @Override
-    public OrderItemDto editItem(Integer orderId, Integer itemId, OrderItemDto orderItemDto) {
+    public Optional<OrderItemDto> editItem(Integer orderId, Integer itemId, OrderItemDto orderItemDto) {
         return null;
     }
 
@@ -104,8 +113,13 @@ public class OrderServiceImpl implements OrderService {
         return calculationService.processOrder(order);
     }
 
-    private Order cancelInternal(Order order, OrderDto orderDto) {
-        order.setStatus(orderStatusMapper.toModel(orderDto.getStatus()));
-        return null;
+    private Order confirmInternal(Order order) {
+        order.setStatus(OrderStatus.CONFIRMED);
+        return order;
+    }
+
+    private Order cancelInternal(Order order) {
+        order.setStatus(OrderStatus.CANCELED);
+        return order;
     }
 }
