@@ -6,9 +6,12 @@ import org.springframework.transaction.annotation.Transactional;
 import test.cafe.dto.OrderDto;
 import test.cafe.dto.OrderItemDto;
 import test.cafe.mapper.DeliveryTypeMapper;
+import test.cafe.mapper.OrderItemMapper;
 import test.cafe.mapper.OrderMapper;
 import test.cafe.model.Order;
+import test.cafe.model.OrderItem;
 import test.cafe.model.type.OrderStatus;
+import test.cafe.repository.OrderItemRepository;
 import test.cafe.repository.OrderRepository;
 
 import java.math.BigDecimal;
@@ -23,9 +26,11 @@ public class OrderServiceImpl implements OrderService {
 
     // TODO: 17.05.2022 Spring IoC, Spring Context
     private final OrderMapper orderMapper;
+    private final OrderItemMapper orderItemMapper;
     private final DeliveryTypeMapper deliveryTypeMapper;
     private final OrderRepository orderRepository;
-    private final CalculationService calculationService;
+    private final OrderItemRepository orderItemRepository;
+    private final CalculationServiceInternal calculationServiceInternal;
 
     // TODO: 18.05.2022 Реализовать проверки статусов заказов перед совершением операций
 
@@ -80,12 +85,29 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Optional<OrderItemDto> addItem(Integer orderId, OrderItemDto orderItemDto) {
-        // todo Извлечь из БД заказ
-        // todo Проебразовать ДТО в сущность
-        // todo Добавить созданную позицию в список позиций заказа
-        // todo Запонить идентификатором заказа поле id в позиции заказа
-        // todo Пересчитать сумму заказа
-        return null;
+        // Извлечь из БД заказ
+        Order order = orderRepository.findById(orderId).orElse(null);
+
+        if (order == null) {
+            return Optional.empty();
+        }
+
+        // Проебразовать ДТО в сущность
+        OrderItem newOrderItem = orderItemMapper.toModel(orderItemDto);
+
+        // Запонить идентификатором заказа поле id в позиции заказа
+        newOrderItem.setOrder(order);
+
+        orderItemRepository.save(newOrderItem);
+
+        // Пересчитать сумму заказа
+        calculationServiceInternal.processOrder(order);
+
+        // Сохранить заказ (с добавленной позицией)
+        orderRepository.save(order);
+
+        // Преобразовать позицию заказа в ДТО
+        return Optional.of(orderItemMapper.toDto(newOrderItem));
     }
 
     @Override
@@ -110,7 +132,7 @@ public class OrderServiceImpl implements OrderService {
         order.setCustomerName(orderDto.getCustomerName());
         order.setDeliveryAddress(orderDto.getDeliveryAddress());
         order.setDeliveryType(deliveryTypeMapper.toModel(orderDto.getDeliveryType()));
-        return calculationService.processOrder(order);
+        return calculationServiceInternal.processOrder(order);
     }
 
     private Order confirmInternal(Order order) {

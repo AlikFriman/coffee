@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import test.cafe.dto.CoffeeTypeDto;
 import test.cafe.mapper.CoffeeTypeMapper;
+import test.cafe.model.CoffeeType;
 import test.cafe.repository.CoffeeTypeRepository;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor // TODO: 11.05.2022 Понять и осознать эту магию
-public class CoffeeTypeServiceImpl implements CoffeeTypeService {
+public class CoffeeTypeServiceImpl implements CoffeeTypeService, CoffeeTypeServiceInternal {
 
     private final CoffeeTypeRepository coffeeTypeRepository;
     private final CoffeeTypeMapper coffeeTypeMapper;
@@ -22,5 +23,10 @@ public class CoffeeTypeServiceImpl implements CoffeeTypeService {
         return coffeeTypeRepository.findAll().stream()
                 .map(coffeeTypeMapper::toDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public CoffeeType getById(Integer id) {
+        return coffeeTypeRepository.findById(id).orElse(null);
     }
 }

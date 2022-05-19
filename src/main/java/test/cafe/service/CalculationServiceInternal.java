@@ -2,7 +2,7 @@ package test.cafe.service;
 
 import test.cafe.model.Order;
 
-public interface CalculationService {
+public interface CalculationServiceInternal {
 
     /**
      * Рассчет стоимости заказа.

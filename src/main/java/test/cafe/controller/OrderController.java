@@ -18,6 +18,8 @@ public class OrderController {
 
     private final OrderService orderService;
 
+    // TODO: 19.05.2022 Добавить метод для получения информации о заказе по его id
+
     /**
      * Получить список заказов.
      *
@@ -127,6 +129,7 @@ public class OrderController {
     @DeleteMapping("/{orderId}/items/{itemId}")
     public ResponseEntity<OrderItemDto> deleteItem(@PathVariable Integer orderId,
                                                    @PathVariable Integer itemId) {
+
         return ResponseEntity.ok().build();
     }
 

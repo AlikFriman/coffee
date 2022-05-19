@@ -4,12 +4,22 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import test.cafe.dto.OrderItemDto;
 import test.cafe.model.OrderItem;
+import test.cafe.service.CoffeeTypeServiceInternal;
 
-@Mapper(componentModel = "spring")
+@Mapper(
+        componentModel = "spring",
+        uses = {CoffeeTypeServiceInternal.class} // TODO Разобраться
+)
 public interface OrderItemMapper {
 
-    @Mapping(target = "orderId", source = "order.id") // todo Разобраться, как это работает
+    @Mapping(target = "orderId", source = "order.id")
+    @Mapping(target = "coffeeTypeId", source = "coffeeType.id")
+        // todo Разобраться, как это работает
+    OrderItemDto toDto(OrderItem orderItem);
+
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "sum", ignore = true)
-    OrderItemDto toDto(OrderItem orderItem);
+    @Mapping(target = "order", ignore = true)
+    @Mapping(target = "coffeeType", source = "coffeeTypeId")
+    OrderItem toModel(OrderItemDto orderItemDto);
 }

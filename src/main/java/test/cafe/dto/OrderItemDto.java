@@ -16,9 +16,9 @@ public class OrderItemDto {
     private Integer id;
 
     /**
-     * Сорт кофе.
+     * Идентификатор сорта кофе.
      */
-    private CoffeeTypeDto coffeeType;
+    private Integer coffeeTypeId;
 
     /**
      * Количество.
