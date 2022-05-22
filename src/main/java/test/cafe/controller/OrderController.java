@@ -21,37 +21,53 @@ public class OrderController {
     // TODO: 19.05.2022 Добавить метод для получения информации о заказе по его id
 
     /**
+     * Получить позицию заказа.
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}/get")
+    public ResponseEntity<OrderDto> get(@PathVariable Integer id) {
+
+        return orderService.getOrder(id)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+
+    }
+
+    /**
      * Получить список заказов.
      *
      * @return Список заказов.
      */
     @GetMapping
     public ResponseEntity<List<OrderDto>> list() {
-        List<OrderDto> list = orderService.list();
+        List<OrderDto> list = orderService.listOrders();
         return ResponseEntity.ok(list);
     }
 
     /**
-     * Создание нового заказа
+     * Создание нового заказа.
      *
      * @param orderDto
      * @return
      */
     @PostMapping("/create")
     public ResponseEntity<OrderDto> create(@RequestBody OrderDto orderDto) {
-        OrderDto newOrderDto = orderService.create(orderDto);
+        OrderDto newOrderDto = orderService.createOrder(orderDto);
         return ResponseEntity.ok(newOrderDto);
     }
 
     /**
-     * Изменение заказа
+     * Изменение заказа.
+     *
      * @param id
      * @param orderDto
      * @return
      */
     @PutMapping("/{id}/edit")
     public ResponseEntity<OrderDto> edit(@PathVariable Integer id, @RequestBody OrderDto orderDto) {
-        return orderService.edit(id, orderDto)
+        return orderService.editOder(id, orderDto)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
@@ -64,7 +80,7 @@ public class OrderController {
      */
     @PutMapping("/{id}/confirm")
     public ResponseEntity<OrderDto> confirm(@PathVariable Integer id) {
-        return orderService.confirm(id)
+        return orderService.confirmOrder(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
@@ -77,10 +93,9 @@ public class OrderController {
      */
     @PutMapping("/{id}/cancel")
     public ResponseEntity<OrderDto> cancel(@PathVariable Integer id) {
-        // todo: Вызвать соответствующий метод сервиса
-        return orderService.cancel(id)
+        return orderService.cancelOrder(id)
                 .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build()); // Итог
+                .orElseGet(() -> ResponseEntity.notFound().build());
 
 //// 1 Способ, через if
 //        OrderDto newOrderDto = orderService.cancel(id, orderDto);
@@ -117,7 +132,7 @@ public class OrderController {
                                                 @RequestBody OrderItemDto orderItemDto) {
         return orderService.addItem(orderId, orderItemDto)
                 .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build()); // Итог
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     /**
@@ -129,8 +144,9 @@ public class OrderController {
     @DeleteMapping("/{orderId}/items/{itemId}")
     public ResponseEntity<OrderItemDto> deleteItem(@PathVariable Integer orderId,
                                                    @PathVariable Integer itemId) {
-
-        return ResponseEntity.ok().build();
+        return orderService.deleteItem(orderId, itemId)
+                ? ResponseEntity.ok().build()
+                : ResponseEntity.notFound().build();
     }
 
     /**
@@ -145,6 +161,8 @@ public class OrderController {
     public ResponseEntity<OrderItemDto> editItem(@PathVariable Integer orderId,
                                                  @PathVariable Integer itemId,
                                                  @RequestBody OrderItemDto orderItemDto) {
-        return ResponseEntity.ok().build();
+        return orderService.editItem(orderId, itemId, orderItemDto)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }

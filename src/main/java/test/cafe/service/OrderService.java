@@ -17,7 +17,7 @@ public interface OrderService {
      * @param orderDto
      * @return
      */
-    OrderDto create(OrderDto orderDto);
+    OrderDto createOrder(OrderDto orderDto);
 
     /**
      * Изменение заказа.
@@ -25,21 +25,21 @@ public interface OrderService {
      * @param orderDto
      * @return
      */
-    Optional<OrderDto> edit(Integer id, OrderDto orderDto);
+    Optional<OrderDto> editOder(Integer id, OrderDto orderDto);
 
     /**
      * Подтверждение заказа.
      * @param id
      * @return
      */
-    Optional<OrderDto> confirm(Integer id);
+    Optional<OrderDto> confirmOrder(Integer id);
 
     /**
      * Отмена заказа.
      * @param id
      * @return
      */
-    Optional<OrderDto> cancel(Integer id);
+    Optional<OrderDto> cancelOrder(Integer id);
 
     /**
      * Добавление позиции заказа.
@@ -55,7 +55,7 @@ public interface OrderService {
      * @param itemId
      * @return
      */
-   Optional<OrderItemDto> deleteItem(Integer orderId, Integer itemId);
+   boolean deleteItem(Integer orderId, Integer itemId);
 
     /**
      * Изменение позиции заказа.
@@ -70,5 +70,11 @@ public interface OrderService {
      * Получение списка заказов.
      * @return
      */
-    List<OrderDto> list();
+    List<OrderDto> listOrders();
+
+    /**
+     * Получение заказа.
+     * @return
+     */
+    Optional<OrderDto> getOrder(Integer id);
 }

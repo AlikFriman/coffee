@@ -7,8 +7,8 @@ import test.cafe.model.type.OrderStatus;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -41,7 +41,7 @@ public class Order {
      * Дата и время подтверждения заказа.
      */
     @Column(name = "date_time")
-    private Date dateTime;
+    private LocalDateTime dateTime;
     /**
      * Имя заказчика.
      */

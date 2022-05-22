@@ -5,7 +5,7 @@ import test.cafe.dto.type.DeliveryTypeDto;
 import test.cafe.dto.type.OrderStatusDto;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -22,7 +22,7 @@ public class OrderDto {
     /**
      * Дата и время подтверждения заказа.
      */
-    private Date dateTime;
+    private LocalDateTime dateTime;
 
     /**
      * Имя заказчика.

@@ -5,11 +5,13 @@ import org.mapstruct.Mapping;
 import test.cafe.dto.OrderDto;
 import test.cafe.model.Order;
 
-@Mapper(componentModel = "spring")
+@Mapper(
+        componentModel = "spring",
+        uses = {OrderItemMapper.class}
+)
 public interface OrderMapper {
 
     OrderDto toDto(Order order);
-
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "status", ignore = true)
