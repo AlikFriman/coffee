@@ -30,43 +30,48 @@ public class Order {
     @GeneratedValue
     @Column(name = "id", nullable = false)
     private Integer id;
+
     /**
      * Статус заказа.
      */
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
+
 // TODO: 12.05.2022 Разобраться со временем
     /**
      * Дата и время подтверждения заказа.
      */
     @Column(name = "date_time")
     private LocalDateTime dateTime;
+
     /**
      * Имя заказчика.
      */
     @Column(name = "customer_name", nullable = false)
     private String customerName;
+
     /**
      * Тип доставки.
      */
     @Column(name = "delivery_type")
     @Enumerated(EnumType.STRING)
     private DeliveryType deliveryType;
+
     /**
      * Адрес доставки.
      */
     @Column(name = "delivery_address")
     private String deliveryAddress;
+
     // TODO: 13.05.2022 Ленивая загрузка? Hibernate lazy fetch
     /**
      * Позиции заказа.
      */
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-
+    @EqualsAndHashCode.Exclude // Для исключения отложенной загрузки подчиненных сущностей при вызове метода EqualsAndHashCode
     private List<OrderItem> items = new ArrayList<>();
+
     // TODO: Сделать nullable
     /**
      * Полная стоимость заказа.

@@ -1,5 +1,7 @@
 package test.cafe.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import test.cafe.dto.OrderDto;
 import test.cafe.dto.OrderItemDto;
 
@@ -69,8 +71,9 @@ public interface OrderService {
     /**
      * Получение списка заказов.
      * @return
+     * @param pageable
      */
-    List<OrderDto> listOrders();
+    Page<OrderDto> listOrders(Pageable pageable);
 
     /**
      * Получение заказа.

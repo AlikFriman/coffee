@@ -1,6 +1,8 @@
 package test.cafe.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import test.cafe.dto.OrderDto;
@@ -18,7 +20,6 @@ public class OrderController {
 
     private final OrderService orderService;
 
-    // TODO: 19.05.2022 Добавить метод для получения информации о заказе по его id
 
     /**
      * Получить позицию заказа.
@@ -40,10 +41,10 @@ public class OrderController {
      *
      * @return Список заказов.
      */
-    @GetMapping
-    public ResponseEntity<List<OrderDto>> list() {
-        List<OrderDto> list = orderService.listOrders();
-        return ResponseEntity.ok(list);
+    @PostMapping("/list")
+    public ResponseEntity<Page<OrderDto>> list(Pageable pageable) {
+        Page<OrderDto> page = orderService.listOrders(pageable);
+        return ResponseEntity.ok(page);
     }
 
     /**
@@ -165,4 +166,6 @@ public class OrderController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    // TODO: 25.05.2022 Реализовать метод для получения позиций заказа по идентификатору заказа с использованием Pageable
 }

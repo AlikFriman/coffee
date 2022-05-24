@@ -1,6 +1,8 @@
 package test.cafe.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import test.cafe.dto.OrderDto;
@@ -17,10 +19,7 @@ import test.cafe.repository.OrderRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional // todo Разобраться с транзакциями в СУБД и Spring
@@ -161,11 +160,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderDto> listOrders() {
+    public Page<OrderDto> listOrders(Pageable pageable) {
         // TODO: 11.05.2022  Что такое лямбда-выражения... Осознать
-        return orderRepository.findAll().stream()
-                .map(orderMapper::toDto)
-                .collect(Collectors.toList());
+        return orderRepository.findAll(pageable)
+                .map(orderMapper::toDto);
     }
 
     @Override

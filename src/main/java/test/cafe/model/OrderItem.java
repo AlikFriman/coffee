@@ -39,8 +39,9 @@ public class OrderItem {
      */
     @ManyToOne
     @JoinColumn(name = "order_id", nullable = false)
-    @ToString.Exclude
+    @ToString.Exclude // Для предотвращения бесконечного цикла с Order при формировании строки
     private Order order;
+
     /**
      * Стоимость.
      */

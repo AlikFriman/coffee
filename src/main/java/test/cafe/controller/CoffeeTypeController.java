@@ -22,6 +22,7 @@ public class CoffeeTypeController {
      *
      * @return Список сортов кофе.
      */
+    // TODO: 25.05.2022 Переделать на Pageable
     @GetMapping
     public ResponseEntity<List<CoffeeTypeDto>> list() {
         List<CoffeeTypeDto> list = coffeeTypeService.list();

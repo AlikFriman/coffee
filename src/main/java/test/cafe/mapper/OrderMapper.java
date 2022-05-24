@@ -11,6 +11,7 @@ import test.cafe.model.Order;
 )
 public interface OrderMapper {
 
+    @Mapping(target = "items", ignore = true)
     OrderDto toDto(Order order);
 
     @Mapping(target = "id", ignore = true)
