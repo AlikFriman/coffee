@@ -2,6 +2,8 @@ package test.cafe.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import test.cafe.dto.CoffeeTypeDto;
 import test.cafe.mapper.CoffeeTypeMapper;
@@ -23,12 +25,11 @@ public class CoffeeTypeServiceImpl implements CoffeeTypeService, CoffeeTypeServi
 
     @Override
     @Cacheable(COFFEE_TYPE_SERVICE_LIST)
-    public List<CoffeeTypeDto> list() {
+    public Page<CoffeeTypeDto> list(Pageable pageable) {
         // TODO: 11.05.2022  Что такое лямбда-выражения... Осознать
         // Реализация кэширования.
-        return coffeeTypeRepository.findAll().stream()
-                .map(coffeeTypeMapper::toDto)
-                .collect(Collectors.toList());
+        return coffeeTypeRepository.findAll(pageable)
+                .map(coffeeTypeMapper::toDto);
     }
 
     @Override

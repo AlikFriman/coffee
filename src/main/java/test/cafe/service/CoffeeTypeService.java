@@ -1,5 +1,7 @@
 package test.cafe.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import test.cafe.dto.CoffeeTypeDto;
 import java.util.List;
 
@@ -13,6 +15,7 @@ public interface CoffeeTypeService {
      * Получение списка сортов кофе.
      *
      * @return Список сортов кофе
+     * @param pageable
      */
-    List<CoffeeTypeDto> list();
+    Page<CoffeeTypeDto> list(Pageable pageable);
 }
