@@ -5,7 +5,6 @@ import org.springframework.data.domain.Pageable;
 import test.cafe.dto.OrderDto;
 import test.cafe.dto.OrderItemDto;
 
-import java.util.List;
 import java.util.Optional;
 
 
@@ -80,4 +79,13 @@ public interface OrderService {
      * @return
      */
     Optional<OrderDto> getOrder(Integer id);
+
+    /**
+     *  Получение позиций заказа по идентификатору заказа
+     *
+     * @param orderId
+     * @param pageable
+     * @return
+     */
+    Page<OrderItemDto> listOrderItems(Integer orderId, Pageable pageable);
 }

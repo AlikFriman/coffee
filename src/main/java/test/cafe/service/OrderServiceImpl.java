@@ -174,6 +174,12 @@ public class OrderServiceImpl implements OrderService {
                 .map(orderMapper::toDto);
     }
 
+    @Override
+    public Page<OrderItemDto> listOrderItems(Integer orderId, Pageable pageable) {
+        return orderItemRepository.findAllByOrder_Id(orderId, pageable)
+                .map(orderItemMapper::toDto);
+    }
+
     private Order editInternal(Order order, OrderDto orderDto) {
         order.setCustomerName(orderDto.getCustomerName());
         order.setDeliveryAddress(orderDto.getDeliveryAddress());

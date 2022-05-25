@@ -9,8 +9,6 @@ import test.cafe.dto.OrderDto;
 import test.cafe.dto.OrderItemDto;
 import test.cafe.service.OrderService;
 
-import java.util.List;
-
 // TODO: 17.05.2022 Разобраться, как передаются данные с фронта в контроллеры
 //  Аннотации!!!
 @RestController
@@ -20,15 +18,16 @@ public class OrderController {
 
     private final OrderService orderService;
 
+    // TODO: 25.05.2022 Разобраться с javadoc
 
     /**
      * Получить позицию заказа.
      *
-     * @param id
-     * @return
+     * @param id - тдентификатор заказа
+     * @return HTTP-ответ с DTO заказа
      */
     @GetMapping("/{id}/get")
-    public ResponseEntity<OrderDto> get(@PathVariable Integer id) {
+    public ResponseEntity<OrderDto> getOrder(@PathVariable Integer id) {
 
         return orderService.getOrder(id)
                 .map(ResponseEntity::ok)
@@ -39,10 +38,10 @@ public class OrderController {
     /**
      * Получить список заказов.
      *
-     * @return Список заказов.
+     * @return Список заказов
      */
     @PostMapping("/list")
-    public ResponseEntity<Page<OrderDto>> list(Pageable pageable) {
+    public ResponseEntity<Page<OrderDto>> listOrders(Pageable pageable) {
         Page<OrderDto> page = orderService.listOrders(pageable);
         return ResponseEntity.ok(page);
     }
@@ -50,11 +49,11 @@ public class OrderController {
     /**
      * Создание нового заказа.
      *
-     * @param orderDto
-     * @return
+     * @param orderDto - DTO с данными для создания нового заказа
+     * @return HTTP-ответ с DTO созданного заказа
      */
     @PostMapping("/create")
-    public ResponseEntity<OrderDto> create(@RequestBody OrderDto orderDto) {
+    public ResponseEntity<OrderDto> createOrder(@RequestBody OrderDto orderDto) {
         OrderDto newOrderDto = orderService.createOrder(orderDto);
         return ResponseEntity.ok(newOrderDto);
     }
@@ -67,7 +66,7 @@ public class OrderController {
      * @return
      */
     @PutMapping("/{id}/edit")
-    public ResponseEntity<OrderDto> edit(@PathVariable Integer id, @RequestBody OrderDto orderDto) {
+    public ResponseEntity<OrderDto> editOrder(@PathVariable Integer id, @RequestBody OrderDto orderDto) {
         return orderService.editOder(id, orderDto)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
@@ -80,7 +79,7 @@ public class OrderController {
      * @return
      */
     @PutMapping("/{id}/confirm")
-    public ResponseEntity<OrderDto> confirm(@PathVariable Integer id) {
+    public ResponseEntity<OrderDto> confirmOrder(@PathVariable Integer id) {
         return orderService.confirmOrder(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
@@ -93,7 +92,7 @@ public class OrderController {
      * @return
      */
     @PutMapping("/{id}/cancel")
-    public ResponseEntity<OrderDto> cancel(@PathVariable Integer id) {
+    public ResponseEntity<OrderDto> cancelOrder(@PathVariable Integer id) {
         return orderService.cancelOrder(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
@@ -139,7 +138,7 @@ public class OrderController {
     /**
      * Удаление позиции заказа.
      *
-     * @param orderId
+     * @param orderId - идентификатор заказа
      * @return
      */
     @DeleteMapping("/{orderId}/items/{itemId}")
@@ -168,4 +167,13 @@ public class OrderController {
     }
 
     // TODO: 25.05.2022 Реализовать метод для получения позиций заказа по идентификатору заказа с использованием Pageable
+
+    /**
+     * Получение позиций заказа по идентификатору заказа
+     */
+    @PostMapping("/{orderId}/items/list")
+    public ResponseEntity<Page<OrderItemDto>> listOrderItems(@PathVariable Integer orderId, Pageable pageable) {
+        Page<OrderItemDto> page = orderService.listOrderItems(orderId, pageable);
+        return ResponseEntity.ok(page);
+    }
 }
