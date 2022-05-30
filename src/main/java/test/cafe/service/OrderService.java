@@ -15,77 +15,77 @@ public interface OrderService {
 
     /**
      * Создание заказа.
-     * @param orderDto
-     * @return
+     * @param orderDto DTO с данными для создания нового заказа
+     * @return HTTP-ответ с DTO созданного заказа
      */
     OrderDto createOrder(OrderDto orderDto);
 
     /**
      * Изменение заказа.
-     * @param id
-     * @param orderDto
-     * @return
+     * @param id Идентификатор заказа.
+     * @param orderDto DTO с данными изменяемого заказа.
+     * @return HTTP-ответ с DTO измененного заказа.
      */
     Optional<OrderDto> editOder(Integer id, OrderDto orderDto);
 
     /**
      * Подтверждение заказа.
-     * @param id
-     * @return
+     * @param id Идентификатор заказа.
+     * @return HTTP-ответ о подтверждении заказа.
      */
     Optional<OrderDto> confirmOrder(Integer id);
 
     /**
      * Отмена заказа.
-     * @param id
-     * @return
+     * @param id Идентификатор заказа.
+     * @return HTTP-ответ об отмене заказа.
      */
     Optional<OrderDto> cancelOrder(Integer id);
 
     /**
      * Добавление позиции заказа.
-     * @param orderId
-     * @param orderItemDto
-     * @return
+     * @param orderId Идентификатор заказа.
+     * @param orderItemDto DTO с данными позиций заказа.
+     * @return HTTP-ответ с DTO добавленной позицией заказа.
      */
     Optional<OrderItemDto> addItem(Integer orderId, OrderItemDto orderItemDto);
 
     /**
      * Удаление позиции заказа.
-     * @param orderId
-     * @param itemId
-     * @return
+     * @param orderId Идентификатор заказа.
+     * @param itemId Идентификатор позиции заказа.
+     * @return Пустой элемент.
      */
    boolean deleteItem(Integer orderId, Integer itemId);
 
     /**
      * Изменение позиции заказа.
-     * @param orderId
-     * @param itemId
-     * @param orderItemDto
-     * @return
+     * @param orderId Идентификатор заказа.
+     * @param itemId Идентификатор позиции заказа.
+     * @param orderItemDto DTO с данными позиций заказа.
+     * @return HTTP-ответ с DTO измененной позицией заказа.
      */
     Optional<OrderItemDto> editItem(Integer orderId, Integer itemId, OrderItemDto orderItemDto);
 
     /**
      * Получение списка заказов.
-     * @return
-     * @param pageable
+     * @param pageable Страница списка заказов.
+     * @return Страница заказов.
      */
     Page<OrderDto> listOrders(Pageable pageable);
 
     /**
      * Получение заказа.
-     * @return
+     * @return Optional-люъект DTO заказа.
      */
     Optional<OrderDto> getOrder(Integer id);
 
     /**
      *  Получение позиций заказа по идентификатору заказа
      *
-     * @param orderId
-     * @param pageable
-     * @return
+     * @param orderId Идентификатор заказа.
+     * @param pageable Страница списка позиций заказов.
+     * @return Страница позиций заказа.
      */
     Page<OrderItemDto> listOrderItems(Integer orderId, Pageable pageable);
 }

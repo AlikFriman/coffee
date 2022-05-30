@@ -11,6 +11,7 @@ import test.cafe.service.OrderService;
 
 // TODO: 17.05.2022 Разобраться, как передаются данные с фронта в контроллеры
 //  Аннотации!!!
+@CrossOrigin
 @RestController
 @RequestMapping("/orders")
 @AllArgsConstructor
@@ -23,8 +24,8 @@ public class OrderController {
     /**
      * Получить позицию заказа.
      *
-     * @param id - тдентификатор заказа
-     * @return HTTP-ответ с DTO заказа
+     * @param id идентификатор заказа.
+     * @return HTTP-ответ с DTO заказа.
      */
     @GetMapping("/{id}/get")
     public ResponseEntity<OrderDto> getOrder(@PathVariable Integer id) {
@@ -38,7 +39,7 @@ public class OrderController {
     /**
      * Получить список заказов.
      *
-     * @return Список заказов
+     * @return Список заказов.
      */
     @PostMapping("/list")
     public ResponseEntity<Page<OrderDto>> listOrders(Pageable pageable) {
@@ -49,7 +50,7 @@ public class OrderController {
     /**
      * Создание нового заказа.
      *
-     * @param orderDto - DTO с данными для создания нового заказа
+     * @param orderDto DTO с данными для создания нового заказа
      * @return HTTP-ответ с DTO созданного заказа
      */
     @PostMapping("/create")
@@ -61,9 +62,9 @@ public class OrderController {
     /**
      * Изменение заказа.
      *
-     * @param id
-     * @param orderDto
-     * @return
+     * @param id идентификатор заказа.
+     * @param orderDto DTO с данными изменяемого заказа.
+     * @return HTTP-ответ с DTO измененного заказа.
      */
     @PutMapping("/{id}/edit")
     public ResponseEntity<OrderDto> editOrder(@PathVariable Integer id, @RequestBody OrderDto orderDto) {
@@ -75,8 +76,8 @@ public class OrderController {
     /**
      * Подтверждение заказа.
      *
-     * @param id
-     * @return
+     * @param id идентификатор заказа.
+     * @return HTTP-ответ о подтверждении заказа.
      */
     @PutMapping("/{id}/confirm")
     public ResponseEntity<OrderDto> confirmOrder(@PathVariable Integer id) {
@@ -88,8 +89,8 @@ public class OrderController {
     /**
      * Отмена заказа.
      *
-     * @param id
-     * @return
+     * @param id идентификатор заказа.
+     * @return HTTP-ответ об отмене заказа.
      */
     @PutMapping("/{id}/cancel")
     public ResponseEntity<OrderDto> cancelOrder(@PathVariable Integer id) {
@@ -123,9 +124,9 @@ public class OrderController {
     /**
      * Добавление позиции заказа.
      *
-     * @param orderId
-     * @param orderItemDto
-     * @return
+     * @param orderId идентификатор заказа.
+     * @param orderItemDto DTO с данными позиций заказа.
+     * @return HTTP-ответ с DTO добавленной позицией заказа.
      */
     @PostMapping("/{orderId}/items")
     public ResponseEntity<OrderItemDto> addItem(@PathVariable Integer orderId,
@@ -138,11 +139,11 @@ public class OrderController {
     /**
      * Удаление позиции заказа.
      *
-     * @param orderId - идентификатор заказа
-     * @return
+     * @param orderId - идентификатор заказа.
+     * @return Пустой элемент.
      */
     @DeleteMapping("/{orderId}/items/{itemId}")
-    public ResponseEntity<OrderItemDto> deleteItem(@PathVariable Integer orderId,
+    public ResponseEntity<Void> deleteItem(@PathVariable Integer orderId,
                                                    @PathVariable Integer itemId) {
         return orderService.deleteItem(orderId, itemId)
                 ? ResponseEntity.ok().build()
@@ -152,10 +153,10 @@ public class OrderController {
     /**
      * Изменение позиции заказа.
      *
-     * @param orderId
-     * @param itemId
-     * @param orderItemDto
-     * @return
+     * @param orderId Идентификатор заказа.
+     * @param itemId Идентификатор позиции заказа.
+     * @param orderItemDto DTO с данными позиций заказа.
+     * @return HTTP-ответ с DTO измененной позицией заказа.
      */
     @PutMapping("/{orderId}/items/{itemId}")
     public ResponseEntity<OrderItemDto> editItem(@PathVariable Integer orderId,
@@ -165,8 +166,6 @@ public class OrderController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-
-    // TODO: 25.05.2022 Реализовать метод для получения позиций заказа по идентификатору заказа с использованием Pageable
 
     /**
      * Получение позиций заказа по идентификатору заказа

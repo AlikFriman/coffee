@@ -5,6 +5,7 @@ import {FormsModule} from "@angular/forms";
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule} from "@angular/material/button";
+import {HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import {MatButtonModule} from "@angular/material/button";
     BrowserModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
