@@ -59,7 +59,7 @@ public class OrderServiceImpl implements OrderService {
                 .filter(order -> order.getStatus() == OrderStatus.CREATED)
                 // Изменить соответствующие поля
                 .map(order -> editInternal(order, orderDto))
-                // Сохранить измененный (заказ в репозиторий
+                // Сохранить измененный заказ в репозиторий
                 .map(orderRepository::save)
                 // Сохраненный заказ преобразовать в DTO
                 .map(orderMapper::toDto);

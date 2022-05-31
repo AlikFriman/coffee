@@ -144,7 +144,7 @@ public class OrderController {
      */
     @DeleteMapping("/{orderId}/items/{itemId}")
     public ResponseEntity<Void> deleteItem(@PathVariable Integer orderId,
-                                                   @PathVariable Integer itemId) {
+                                           @PathVariable Integer itemId) {
         return orderService.deleteItem(orderId, itemId)
                 ? ResponseEntity.ok().build()
                 : ResponseEntity.notFound().build();
