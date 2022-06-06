@@ -67,7 +67,8 @@ public class OrderController {
      * @return HTTP-ответ с DTO измененного заказа.
      */
     @PutMapping("/{id}/edit")
-    public ResponseEntity<OrderDto> editOrder(@PathVariable Integer id, @RequestBody OrderDto orderDto) {
+    public ResponseEntity<OrderDto> editOrder(@PathVariable Integer id,
+                                              @RequestBody OrderDto orderDto) {
         return orderService.editOder(id, orderDto)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
@@ -140,6 +141,7 @@ public class OrderController {
      * Удаление позиции заказа.
      *
      * @param orderId - идентификатор заказа.
+     * @param itemId  - идентификатор позиции заказа
      * @return Пустой элемент.
      */
     @DeleteMapping("/{orderId}/items/{itemId}")
@@ -174,5 +176,20 @@ public class OrderController {
     public ResponseEntity<Page<OrderItemDto>> listOrderItems(@PathVariable Integer orderId, Pageable pageable) {
         Page<OrderItemDto> page = orderService.listOrderItems(orderId, pageable);
         return ResponseEntity.ok(page);
+    }
+
+    /**
+     * Получение позиции заказа.
+     *
+     * @param orderId - идентификатор заказа.
+     * @param itemId  - идентификатор позиции заказа
+     * @return HTTP-ответ с DTO позиции заказа
+     */
+    @GetMapping("/{orderId}/items/{itemId}")
+    public ResponseEntity<OrderItemDto> getItem(@PathVariable Integer orderId,
+                                                @PathVariable Integer itemId) {
+        return orderService.getItem(orderId, itemId)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }

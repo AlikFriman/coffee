@@ -14,11 +14,12 @@ export class CoffeeTypeService {
   constructor(private httpClient: HttpClient) {
   }
 
-  public getCoffeeTypeList(page: number, size: number): Observable<ContentPage<CoffeeType>> | null {
+  /**
+   * Получение страницы сортов кофе.
+   */
+  public getCoffeeTypeList(): Observable<CoffeeType[]> | null {
     const url = COFFEE_TYPES_LIST_URL;
-    const params = buildPageParams(page, size);
-
-    return this.httpClient.post<ContentPage<CoffeeType>>(url, null, {params: params});
+    return this.httpClient.post<CoffeeType[]>(url, null);
   }
 }
 

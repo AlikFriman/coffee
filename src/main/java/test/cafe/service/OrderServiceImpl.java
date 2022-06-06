@@ -162,6 +162,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Page<OrderDto> listOrders(Pageable pageable) {
         // TODO: 11.05.2022  Что такое лямбда-выражения... Осознать
+        // TODO: 02.06.2022 Добавить сортировку по id
         return orderRepository.findAll(pageable)
                 .map(orderMapper::toDto);
     }
@@ -177,6 +178,12 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Page<OrderItemDto> listOrderItems(Integer orderId, Pageable pageable) {
         return orderItemRepository.findAllByOrder_Id(orderId, pageable)
+                .map(orderItemMapper::toDto);
+    }
+
+    @Override
+    public Optional<OrderItemDto> getItem(Integer orderId, Integer itemId) {
+        return orderItemRepository.findFirstByIdAndOrder_Id(itemId, orderId)
                 .map(orderItemMapper::toDto);
     }
 

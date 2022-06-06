@@ -76,16 +76,25 @@ public interface OrderService {
 
     /**
      * Получение заказа.
-     * @return Optional-люъект DTO заказа.
+     * @return Optional-объект DTO заказа.
      */
     Optional<OrderDto> getOrder(Integer id);
 
     /**
-     *  Получение позиций заказа по идентификатору заказа
+     * Получение позиций заказа по идентификатору заказа
      *
      * @param orderId Идентификатор заказа.
      * @param pageable Страница списка позиций заказов.
      * @return Страница позиций заказа.
      */
     Page<OrderItemDto> listOrderItems(Integer orderId, Pageable pageable);
+
+    /**
+     * Получение позиции заказа.
+     *
+     * @param orderId идентификатор заказа
+     * @param itemId  идентификатор позиции заказа
+     * @return Optional-объект DTO позиции заказа
+     */
+    Optional<OrderItemDto> getItem(Integer orderId, Integer itemId);
 }

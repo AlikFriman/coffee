@@ -1,1 +1,40 @@
-<p>order-item-detail works!</p>
+<h2 mat-dialog-title>Изменение позиции заказа</h2>
+
+<mat-dialog-content>
+
+    Стоимость позиции заказа: {{orderItem.sum}} TGR
+
+
+<!--  <mat-form-field>-->
+<!--    <mat-label></mat-label>-->
+<!--    <label>-->
+<!--      <input matInput type="text" [(ngModel)]="orderItem.coffeeTypeId">-->
+<!--    </label>-->
+<!--  </mat-form-field>-->
+<!--  <br/>-->
+
+<!--  Выберите сорт кофе-->
+<!--  <mat-form-field>-->
+<!--    <mat-label></mat-label>-->
+<!--    <label>-->
+<!--      <input matInput type="text" [(ngModel)]="orderItem.coffeeTypeId">-->
+<!--    </label>-->
+<!--  </mat-form-field>-->
+<!--  <br/>-->
+
+<!--  sum-->
+
+<!--  <br/>-->
+<!--  Количество кружек-->
+<!--  <mat-form-field>-->
+<!--    <mat-label>Количество кружек</mat-label>-->
+<!--    <label>-->
+<!--      <input [(ngModel)]="orderItem.coffeeTypeId" class="form-control" type="number" min="0" max="20" placeholder>-->
+<!--    </label>-->
+<!--  </mat-form-field>-->
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button (click)="close(null)">Отмена</button>
+  <button mat-raised-button color="primary" (click)="close('RESULT')">Сохранить</button>
+</mat-dialog-actions>

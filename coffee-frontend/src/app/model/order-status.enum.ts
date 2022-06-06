@@ -6,20 +6,20 @@ export enum OrderStatusEnum {
   /**
    * Создан.
    */
-  CREATED = 'CREATED',
+  CREATED = 'Создан',
 
   /**
    * Подтвержден.
    */
-  CONFIRMED = 'CONFIRMED',
+  CONFIRMED = 'Подтвержден',
 
   /**
    * Доставлен.
    */
-  DELIVERED = 'DELIVERED',
+  DELIVERED = 'Доставлен',
 
   /**
    * Отменен.
    */
-  CANCELED = 'CANCELED'
+  CANCELED = 'Отменен'
 }

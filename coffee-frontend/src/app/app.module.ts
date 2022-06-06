@@ -7,36 +7,51 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule} from "@angular/material/button";
 import {HttpClientModule} from "@angular/common/http";
 import {OrderListComponent} from "./component/order-list/order-list.component";
-import {OrderListItemComponent} from './component/order-list-item/order-list-item.component';
-import { OrderDetailComponent } from './component/order-detail/order-detail.component';
-import { OrderItemListComponent } from './component/order-item-list/order-item-list.component';
-import { OrderItemListItemComponent } from './component/order-item-list-item/order-item-list-item.component';
-import { OrderItemDetailComponent } from './component/order-item-detail/order-item-detail.component';
-import { CoffeeTypeListComponent } from './component/coffee-type-list/coffee-type-list.component';
-import { CoffeeTypeListItemComponent } from './component/coffee-type-list-item/coffee-type-list-item.component';
+import {OrderDetailComponent} from './component/order-detail/order-detail.component';
+import {OrderItemDetailComponent} from './component/order-item-detail/order-item-detail.component';
+import {CoffeeTypeListComponent} from './component/coffee-type-list/coffee-type-list.component';
+import {AppRoutingModule} from "./app-routing.module";
+import {MatCardModule} from "@angular/material/card";
+import {MatInputModule} from "@angular/material/input";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatTableModule} from "@angular/material/table";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {MatIconModule} from "@angular/material/icon";
+import {MatTooltipModule} from "@angular/material/tooltip";
+import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from "@angular/material/dialog";
 
 
 @NgModule({
   declarations: [
     AppComponent,
     OrderListComponent,
-    OrderListItemComponent,
     OrderDetailComponent,
-    OrderItemListComponent,
-    OrderItemListItemComponent,
     OrderItemDetailComponent,
-    CoffeeTypeListComponent,
-    CoffeeTypeListItemComponent
-
+    CoffeeTypeListComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MatButtonModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule,
+    MatCardModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatToolbarModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatIconModule,
+    MatTooltipModule,
+    MatDialogModule
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
