@@ -4,6 +4,7 @@ import {Order} from "../../model/order.model";
 import {ContentPage} from "../../model/content-page.model";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-order-list',
@@ -12,18 +13,21 @@ import {MatPaginator, PageEvent} from "@angular/material/paginator";
 })
 export class OrderListComponent implements OnInit, AfterViewInit {
 
+  order: Order = <Order>{};
+
   page: number = 0;
   size: number = 20;
   total: number = 0;
   pageSizeOptions: number[] = [5, 10, 25, 50];
 
-  displayedColumns: string[] = ['id', 'customerName', 'deliveryType', 'deliveryAddress', 'sum', 'dateTime', 'status'];
+  displayedColumns: string[] = ['index', 'customerName', 'deliveryType', 'deliveryAddress', 'sum', 'dateTime', 'status', 'detail'];
   dataSource: MatTableDataSource<Order> = new MatTableDataSource();
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
 
-  constructor(private orderService: OrderService) {
+  constructor(private orderService: OrderService,
+              private router: Router) {
   }
 
   ngAfterViewInit() {
@@ -46,4 +50,9 @@ export class OrderListComponent implements OnInit, AfterViewInit {
     this.size = event.pageSize;
     this.loadData();
   }
+
+  details(orderID: number) {
+    this.router.navigateByUrl(`/${orderID}`);
+  }
+
 }

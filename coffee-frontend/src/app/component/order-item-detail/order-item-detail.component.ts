@@ -1,14 +1,14 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {Order} from "../../model/order.model";
 import {OrderItem} from "../../model/order-item.model";
 import {OrderService} from "../../service/order.service";
 import {CoffeeType} from "../../model/coffee-type.model";
-import {ActivatedRoute} from "@angular/router";
 
 export interface OrderItemEditDialogData {
-  order: Order;
+  orderId: number;
   itemId: number;
+  index: number;
+  coffeeTypes: CoffeeType[];
 }
 
 @Component({
@@ -17,9 +17,8 @@ export interface OrderItemEditDialogData {
   styleUrls: ['./order-item-detail.component.css']
 })
 export class OrderItemDetailComponent implements OnInit {
-  order: Order = <Order>{};
-  orderItem: OrderItem = <OrderItem>{};
 
+  orderItem: OrderItem = <OrderItem>{};
 
   constructor(public dialogRef: MatDialogRef<OrderItemDetailComponent>,
               @Inject(MAT_DIALOG_DATA) public data: OrderItemEditDialogData,
@@ -27,7 +26,20 @@ export class OrderItemDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dialogRef.afterOpened().subscribe(() => console.info('Data: ', this.data));
+    this.dialogRef.afterOpened().subscribe(() => {
+      if (this.data.itemId) {
+        this.loadOrderItem(this.data.orderId, this.data.itemId)
+      } else {
+        this.createItem();
+      }
+    });
+  }
+
+  createItem() {
+    this.orderItem = <OrderItem>{
+      count: 1,
+      orderId: this.data.orderId
+    }
   }
 
   loadOrderItem(orderId: number, itemId: number) {
@@ -37,8 +49,15 @@ export class OrderItemDetailComponent implements OnInit {
       })
   }
 
-  close(result: any) {
-    this.dialogRef.close(result)
+  cancel() {
+    this.dialogRef.close()
   }
 
+  save() {
+    this.dialogRef.close(this.orderItem)
+  }
+
+  get index(): number {
+    return (this.data.index as number) + 1;
+  }
 }

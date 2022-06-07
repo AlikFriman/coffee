@@ -9,7 +9,6 @@ import {HttpClientModule} from "@angular/common/http";
 import {OrderListComponent} from "./component/order-list/order-list.component";
 import {OrderDetailComponent} from './component/order-detail/order-detail.component';
 import {OrderItemDetailComponent} from './component/order-item-detail/order-item-detail.component';
-import {CoffeeTypeListComponent} from './component/coffee-type-list/coffee-type-list.component';
 import {AppRoutingModule} from "./app-routing.module";
 import {MatCardModule} from "@angular/material/card";
 import {MatInputModule} from "@angular/material/input";
@@ -21,6 +20,7 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatIconModule} from "@angular/material/icon";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from "@angular/material/dialog";
+import {MatSelectModule} from "@angular/material/select";
 
 
 @NgModule({
@@ -29,7 +29,6 @@ import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from "@angular/material/dia
     OrderListComponent,
     OrderDetailComponent,
     OrderItemDetailComponent,
-    CoffeeTypeListComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +46,8 @@ import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from "@angular/material/dia
     MatProgressBarModule,
     MatIconModule,
     MatTooltipModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSelectModule
   ],
   providers: [
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
