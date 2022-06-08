@@ -53,6 +53,6 @@ public class CalculationServiceImpl implements CalculationServiceInternal {
 
     private BigDecimal calculateDeliveryPrice(Order order) {
 //        Расчет стоимости доставки с учетом скидки
-        return order.getSum().compareTo(freeSumDelivery) < 0 ? deliveryPrice :  BigDecimal.ZERO;
+        return order.getSum().compareTo(freeSumDelivery) < 0 && order.getItems().size() > 0 ? deliveryPrice : BigDecimal.ZERO;
     }
 }
