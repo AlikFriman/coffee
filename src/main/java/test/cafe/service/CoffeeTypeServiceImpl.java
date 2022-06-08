@@ -26,6 +26,7 @@ public class CoffeeTypeServiceImpl implements CoffeeTypeService, CoffeeTypeServi
     public List<CoffeeTypeDto> list() {
         // Реализация кэширования.
         return coffeeTypeRepository.findAll().stream()
+                .filter(CoffeeType::isAvailable)
                 .map(coffeeTypeMapper::toDto)
                 .collect(Collectors.toList());
     }
