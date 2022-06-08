@@ -1,0 +1,34 @@
+<h2 mat-dialog-title>Создание заказа # {{data.index}}</h2>
+<mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Имя заказчика</mat-label>
+    <label>
+      <input matInput
+             type="text"
+             [(ngModel)]="order.customerName"
+             required>
+    </label>
+  </mat-form-field>
+  <br/>
+  <mat-form-field>
+    <mat-label>Способ доставки</mat-label>
+    <mat-select [(value)]="order.deliveryType">
+      <mat-option *ngFor="let deliveryType of deliveryTypeOptions" [value]="deliveryType">
+        {{deliveryType}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br/>
+  <mat-form-field *ngIf="order.deliveryType == deliveryTypes.DELIVERY">
+    <mat-label>Адрес доставки</mat-label>
+    <input matInput
+           type="text"
+           [(ngModel)]="order.deliveryAddress"
+           [required]="order.deliveryType == deliveryTypes.DELIVERY">
+  </mat-form-field>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button (click)="cancel()">Отмена</button>
+  <button mat-raised-button color="primary" (click)="save()">Сохранить</button>
+</mat-dialog-actions>

@@ -35,7 +35,6 @@ public class OrderServiceImpl implements OrderService {
     private final CoffeeTypeServiceInternal coffeeTypeService;
     private final CalculationServiceInternal calculationServiceInternal;
 
-    // TODO: 18.05.2022 Реализовать проверки статусов заказов перед совершением операций
 
     @Override
     public OrderDto createOrder(OrderDto orderDto) {
@@ -161,8 +160,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Page<OrderDto> listOrders(Pageable pageable) {
-        // TODO: 11.05.2022  Что такое лямбда-выражения... Осознать
-        // TODO: 02.06.2022 Добавить сортировку по id
         return orderRepository.findAll(pageable)
                 .map(orderMapper::toDto);
     }

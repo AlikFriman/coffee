@@ -21,8 +21,6 @@ public class OrderController {
 
     // TODO: 25.05.2022 Разобраться с javadoc
 
-    // TODO: 07.06.2022 заменить POST на GET  в методах получения данных
-
     /**
      * Получить позицию заказа.
      *
@@ -43,7 +41,7 @@ public class OrderController {
      *
      * @return Список заказов.
      */
-    @PostMapping("/list")
+    @GetMapping("/list")
     public ResponseEntity<Page<OrderDto>> listOrders(Pageable pageable) {
         Page<OrderDto> page = orderService.listOrders(pageable);
         return ResponseEntity.ok(page);
@@ -174,7 +172,7 @@ public class OrderController {
     /**
      * Получение позиций заказа по идентификатору заказа
      */
-    @PostMapping("/{orderId}/items/list")
+    @GetMapping("/{orderId}/items/list")
     public ResponseEntity<Page<OrderItemDto>> listOrderItems(@PathVariable Integer orderId, Pageable pageable) {
         Page<OrderItemDto> page = orderService.listOrderItems(orderId, pageable);
         return ResponseEntity.ok(page);

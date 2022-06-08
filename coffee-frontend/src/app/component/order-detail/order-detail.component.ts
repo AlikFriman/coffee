@@ -62,39 +62,42 @@ export class OrderDetailComponent implements OnInit {
     this.orderService.editOrder(this.order.id, this.order)?.subscribe((order: Order) => this.order = order);
   }
 
-  /*
-  Подтверждение заказа.
- */
+  /**
+   * Подтверждение заказа.
+   */
   confirm() {
     this.orderService.confirmOrder(this.order.id)?.subscribe((order: Order) => this.order = order);
   }
 
-  /*
-  Отмена заказа.
+  /**
+   * Отмена заказа.
    */
   cancel() {
     this.orderService.cancelOrder(this.order.id)?.subscribe((order: Order) => this.order = order);
   }
 
-  /*
+  /**
   Добавение позиции заказа.
    */
   addItem() {
     this.openDialog(null, this.dataSource.data.length)
   }
 
-  /*
+  /**
   Именение позиции заказа.
   */
   editItem(itemId: number, index: number) {
     this.openDialog(itemId, index);
   }
 
-  /*
+  /**
   Удаление позиции заказа.
   */
   deleteItem(itemId: number) {
-    this.orderService.deleteItem(this.order.id, itemId)?.subscribe(() => this.loadOrderItems());
+    this.orderService.deleteItem(this.order.id, itemId)?.subscribe(() => {
+      this.reloadOrder()
+      this.loadOrderItems()
+    });
   }
 
   openDialog(itemId: number | null, index: number) {
@@ -114,12 +117,24 @@ export class OrderDetailComponent implements OnInit {
       console.info('Dialog result: ', result);
       if (result) {
         if (itemId) {
-          this.orderService.editItem(this.order.id, itemId, result)?.subscribe(() => this.loadOrderItems());
+          this.orderService.editItem(this.order.id, itemId, result)?.subscribe(() => {
+            this.reloadOrder()
+            this.loadOrderItems()
+          });
         } else {
-          this.orderService.addItem(this.order.id, result)?.subscribe(() => this.loadOrderItems());
+          this.orderService.addItem(this.order.id, result)?.subscribe(() => {
+            this.reloadOrder()
+            this.loadOrderItems()
+          });
         }
       }
     })
+  }
+
+  reloadOrder() {
+    this.orderService.getOrder(this.order.id)?.subscribe((order: Order) => {
+      this.order = order;
+    });
   }
 
   loadOrderItems() {

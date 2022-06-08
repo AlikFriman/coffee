@@ -57,6 +57,7 @@
     &nbsp;
     <button *ngIf="order.status == orderStatuses.CREATED"
             mat-raised-button color="primary"
+            [disabled]="dataSource.data.length < 1"
             (click)="confirm()">
       Подтвердить заказ
     </button>
@@ -74,7 +75,7 @@
 
       <ng-container matColumnDef="index">
         <th mat-header-cell *matHeaderCellDef> #</th>
-        <td mat-cell *matCellDef="let i = index; let element"> {{i + 1}} </td>
+        <td mat-cell *matCellDef="let i = index; let element"> {{i + 1 + page * size}} </td>
       </ng-container>
 
       <ng-container matColumnDef="coffeeType">

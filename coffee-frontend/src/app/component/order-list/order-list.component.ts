@@ -5,6 +5,8 @@ import {ContentPage} from "../../model/content-page.model";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import {Router} from "@angular/router";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import {OrderCreateComponent, OrderCreateDialogData} from "../order-create/order-create.component";
 
 @Component({
   selector: 'app-order-list',
@@ -27,6 +29,7 @@ export class OrderListComponent implements OnInit, AfterViewInit {
   paginator!: MatPaginator;
 
   constructor(private orderService: OrderService,
+              private dialog: MatDialog,
               private router: Router) {
   }
 
@@ -36,6 +39,33 @@ export class OrderListComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.loadData();
   }
+
+  createOrder() {
+    this.openDialog();
+  }
+
+  details(orderId: number) {
+    this.router.navigateByUrl(`/${orderId}`);
+  }
+
+  openDialog() {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.autoFocus = true;
+    dialogConfig.hasBackdrop = false;
+    dialogConfig.data = <OrderCreateDialogData>{
+      index: this.dataSource.data.length + 1
+    }
+
+    const dialogRef = this.dialog.open(OrderCreateComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      console.info('Dialog result: ', result);
+      if (result) {
+        this.orderService.createOrder(result)?.subscribe((order: Order) => this.router.navigateByUrl(`/${order.id}`));
+      }
+    })
+  }
+
 
   loadData() {
     this.orderService.getOrders(this.page, this.size)?.subscribe((orderContentPage: ContentPage<Order>) => {
@@ -50,9 +80,4 @@ export class OrderListComponent implements OnInit, AfterViewInit {
     this.size = event.pageSize;
     this.loadData();
   }
-
-  details(orderID: number) {
-    this.router.navigateByUrl(`/${orderID}`);
-  }
-
 }

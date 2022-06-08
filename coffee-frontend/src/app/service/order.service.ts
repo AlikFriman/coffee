@@ -34,7 +34,7 @@ export class OrderService {
   public getOrders(page: number, size: number): Observable<ContentPage<Order>> | null {
     const url = ORDERS_LIST_URL
     const params = buildPageParams(page, size);
-    return this.httpClient.post<ContentPage<Order>>(url, null, {params: params});
+    return this.httpClient.get<ContentPage<Order>>(url, {params: params});
   }
 
   /**
@@ -143,6 +143,6 @@ export class OrderService {
   public getOrderItems(id: number, page: number, size: number): Observable<ContentPage<OrderItem>> | null {
     const url = `${ORDERS_URL}/${id}${ITEMS_URL_PART}${LIST_URL_PART}`;
     const params = buildPageParams(page, size);
-    return this.httpClient.post<ContentPage<OrderItem>>(url, null, {params: params});
+    return this.httpClient.get<ContentPage<OrderItem>>(url, {params: params});
   }
 }

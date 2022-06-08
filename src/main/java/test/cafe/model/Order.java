@@ -38,7 +38,6 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-// TODO: 12.05.2022 Разобраться со временем
     /**
      * Дата и время подтверждения заказа.
      */
@@ -72,7 +71,6 @@ public class Order {
     @EqualsAndHashCode.Exclude // Для исключения отложенной загрузки подчиненных сущностей при вызове метода EqualsAndHashCode
     private List<OrderItem> items = new ArrayList<>();
 
-    // TODO: Сделать nullable
     /**
      * Полная стоимость заказа.
      */

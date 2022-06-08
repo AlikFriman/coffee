@@ -19,7 +19,7 @@ export class CoffeeTypeService {
    */
   public getCoffeeTypeList(): Observable<CoffeeType[]> | null {
     const url = COFFEE_TYPES_LIST_URL;
-    return this.httpClient.post<CoffeeType[]>(url, null);
+    return this.httpClient.get<CoffeeType[]>(url);
   }
 }
 

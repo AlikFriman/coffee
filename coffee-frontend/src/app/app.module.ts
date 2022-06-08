@@ -21,6 +21,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from "@angular/material/dialog";
 import {MatSelectModule} from "@angular/material/select";
+import { OrderCreateComponent } from './component/order-create/order-create.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import {MatSelectModule} from "@angular/material/select";
     OrderListComponent,
     OrderDetailComponent,
     OrderItemDetailComponent,
+    OrderCreateComponent,
   ],
   imports: [
     BrowserModule,
