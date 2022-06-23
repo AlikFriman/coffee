@@ -11,7 +11,7 @@
   <br/>
   <mat-form-field>
     <mat-label>Количество кружек</mat-label>
-    <input matInput type="number" [(ngModel)]="orderItem.count">
+    <input matInput type="number" min="0" max="50" [(ngModel)]="orderItem.count">
   </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions>
